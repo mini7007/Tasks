@@ -1,6 +1,6 @@
-# [iTasks] - Simplify Your Tasks and Challenges
+# [eyeTasks] - Simplify Your Tasks and Challenges
 
-Welcome to iTasks, your all-in-one solution for seamless task management and conquering challenges. Enjoy a beautiful UI, effortless task handling, and unique features designed to enhance your productivity without the hassle of sign-ups.
+Welcome to eyeTasks, your all-in-one solution for seamless task management and conquering challenges. Enjoy a beautiful UI, effortless task handling, and unique features designed to enhance your productivity without the hassle of sign-ups.
 
 ## Features
 
