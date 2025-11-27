@@ -1,11 +1,10 @@
 "use client";
 import Box from "@/components/box/box";
-import SmartLinkPopup from "@/components/SmartLinkPopup"; // 👈 Add this
+import SmartLinkPopup from "@/components/SmartLinkPopup";
 
 const Home = () => {
   return (
     <main className="mb-8">
-
       {/* 👇 Popup appears when site loads */}
       <SmartLinkPopup />
 

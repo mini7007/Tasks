@@ -1,6 +1,7 @@
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script"; // 👈 Add this import
 
 // Domestic imports
 import { Providers } from "./providers";
@@ -44,6 +45,13 @@ export default function RootLayout({
           <Header />
           {children}
         </Providers>
+
+        {/* 🚀 Adsterra Popunder Script */}
+        <Script
+          src="https://pl28144710.effectivegatecpm.com/2e/33/75/2e33752de0185df92de1873c4a9eee19.js"
+          strategy="afterInteractive"
+        />
+
         <Analytics />
       </body>
     </html>
