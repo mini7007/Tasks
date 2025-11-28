@@ -1,6 +1,10 @@
 "use client";
 import Box from "@/components/box/box";
+import UrgentTasks from "@/components/UrgentTasks";
 import SmartLinkPopup from "@/components/SmartLinkPopup";
+import DocGenerator from "@/components/gemini-tools/doc-generator";
+import TaskSuggester from "@/components/gemini-tools/task-suggester";
+import SeoHelper from "@/components/gemini-tools/seo-helper";
 
 const Home = () => {
   return (
@@ -25,7 +29,15 @@ const Home = () => {
       </div>
 
       <div className="max-w-screen-xl mx-auto">
+        <div className="mt-6">
+          <UrgentTasks />
+        </div>
         <Box />
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <DocGenerator />
+          <TaskSuggester />
+          <SeoHelper />
+        </div>
       </div>
     </main>
   );

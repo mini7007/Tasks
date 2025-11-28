@@ -41,6 +41,42 @@ You can now export your tasks (the currently filtered view) as CSV for spreadshe
 
 2. Start managing your tasks and challenges effortlessly!
 
+### Gemini tools setup
+
+If you'd like the small AI-powered tools (Documentation generator, Task suggestions, SEO blurb) to work locally you must set your Gemini (Generative AI) API key in an environment variable named `GEMINI_API_KEY`.
+
+Example (.env.local):
+
+```
+GEMINI_API_KEY=your_api_key_here
+# optionally override model
+GEMINI_MODEL=text-bison-001
+```
+
+The app uses a server-side API route (`/api/gemini/generate`) that proxies requests to the Generative API so your key is never exposed to the browser.
+
+### New: Categories, Reminders, Templates & Progress
+
+This workspace now includes additional productivity features that help create structure and increase engagement:
+
+- Categories: group tasks into Work, Personal, Study, and Fitness.
+- Reminders: set a reminder (datetime) for a task — the app will try to show a browser notification when the reminder fires (notification permission required).
+- Templates: import ready-made templates (morning routine, exam study plan, job search checklist, fitness checklist) with one click.
+- Progress tracking: tasks list shows a completion count and a small progress bar.
+
+### New: Urgent / Critical tasks (Overdue)
+
+- If a task's Due Date or Reminder timestamp is in the past the app marks it as Overdue and moves it to the Home page 'Urgent' section.
+- Tasks are grouped into:
+  - 🔥 Urgent Tasks — recently overdue
+  - 🚨 Critical Tasks — overdue by 3+ days
+- Overdue tasks show a human-readable delay (e.g., "Delayed by 3 hours") that dynamically updates every minute while the app is open.
+- Resolve or Snooze overdue tasks directly from the Home page; the app stores the change and the task will be removed from the urgent list.
+
+Note: Reminder delivery remains a local/browser behavior (setTimeout in the running tab) — the app does not rely on any external push service.
+
+These features are local-first and stored in `localStorage`.
+
 That's it! No need to clone the repository or open index.html manually. Dive into iTasks and boost your productivity today! 🚀 #iTasks #ProductivityRevolution
 
 ## How to Contribute

@@ -11,6 +11,8 @@ export const taskSchema = z.object({
     dueDate: z.string().optional(),
     estimate: z.number().optional(),
     description: z.string().optional(),
+    category: z.string().optional(),
+    reminder: z.string().optional(),
 })
 
 export type Task = z.infer<typeof taskSchema>

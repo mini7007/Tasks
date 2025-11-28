@@ -8,10 +8,7 @@ import { DataTableColumnHeader } from "./data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DataTableRowTitle } from "./data-table-row-title";
-import { DataTableRowType } from "./data-table-row-type";
-import { DataTableRowAssignee } from "./data-table-row-assignee";
-import { DataTableRowDue } from "./data-table-row-due";
-import { DataTableRowEstimate } from "./data-table-row-estimate";
+// moved type/category/assignee/reminder/estimate into title cell for a cleaner compact layout
 import { DataTableRowStatus } from "./data-table-row-status";
 import { DataTableRowPriority } from "./data-table-row-priority";
 import { DataTableRowDescription } from "./data-table-row-description";
@@ -66,22 +63,6 @@ export const columns: ColumnDef<Task>[] = [
     // allow this to be hidden by default in the view options
   },
   {
-    accessorKey: "type",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Type" />
-    ),
-    cell: ({ row }) => <DataTableRowType row={row} />,
-    enableSorting: false,
-  },
-  {
-    accessorKey: "assignee",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Assignee" />
-    ),
-    cell: ({ row }) => <DataTableRowAssignee row={row} />,
-    enableSorting: false,
-  },
-  {
     accessorKey: "status",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Status" />
@@ -91,22 +72,7 @@ export const columns: ColumnDef<Task>[] = [
       return value.includes(row.getValue(id));
     },
   },
-  {
-    accessorKey: "dueDate",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Due" />
-    ),
-    cell: ({ row }) => <DataTableRowDue row={row} />,
-    enableSorting: false,
-  },
-  {
-    accessorKey: "estimate",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Estimate" />
-    ),
-    cell: ({ row }) => <DataTableRowEstimate row={row} />,
-    enableSorting: false,
-  },
+  // note: dueDate and estimate were moved into the title/description area for a compact layout
   {
     accessorKey: "priority",
     header: ({ column }) => (

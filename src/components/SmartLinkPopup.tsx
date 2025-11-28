@@ -1,51 +1,90 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogDescription,
+  DialogTrigger,
+  DialogClose,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
+/**
+ * Small popup that appears on the home page the first time a user visits.
+ * Persists a dismissed flag in localStorage so it doesn't show every visit.
+ */
 export default function SmartLinkPopup() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [dontShow, setDontShow] = useState(false);
 
   useEffect(() => {
-    if (sessionStorage.getItem("popup_shown")) {
-      setOpen(false);
+    try {
+      const dismissed = localStorage.getItem("smartlink_popup_dismissed");
+      if (!dismissed) {
+        // open after a short delay so it doesn't feel abrupt
+        const t = window.setTimeout(() => setOpen(true), 700);
+        return () => clearTimeout(t);
+      }
+    } catch (e) {
+      // ignore
     }
   }, []);
 
-  const closePopup = () => {
-    sessionStorage.setItem("popup_shown", "1");
+  const handleClose = (persist = true) => {
+    try {
+      if (persist) {
+        localStorage.setItem("smartlink_popup_dismissed", "1");
+      }
+    } catch (e) {
+      // ignore
+    }
     setOpen(false);
   };
 
-  if (!open) {
-    return null; // MUST be before JSX
-  }
-
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex justify-center items-center z-50">
-      <div className="bg-neutral-900 text-white p-6 rounded-xl max-w-md text-center border border-neutral-700 shadow-xl">
-        <h2 className="text-xl font-bold mb-2">Welcome to iTasks 👋</h2>
-        <p className="text-sm mb-4 opacity-80">
-          Organize tasks effortlessly, set challenges, and export your progress — all without sign-ups.
-        </p>
+    <Dialog open={open} onOpenChange={(v) => setOpen(v)}>
+      <DialogTrigger asChild>
+        {/* hidden trigger — we open programmatically */}
+        <span className="sr-only">Open smart link popup</span>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogTitle>Welcome to iTasks</DialogTitle>
+        <DialogDescription>
+          Try the quick AI tools on this page (Doc generator, task suggester and
+          SEO helper) — they can help you save time. You can always re-open
+          this popup later from the home page.
+        </DialogDescription>
 
-        {/* 🚀 SmartLink Button */}
-        <a
-          href="https://www.effectivegatecpm.com/kecdvpnbj?key=c5287d7a9600c81a39f67d14509287b5"
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={closePopup}
-          className="inline-block w-full mt-3 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md font-medium transition"
-        >
-          Boost Your Productivity 🚀
-        </a>
+        <div className="mt-4 text-sm text-muted-foreground">
+          <label className="inline-flex items-center gap-2">
+            <input
+              type="checkbox"
+              checked={dontShow}
+              onChange={(e) => setDontShow(e.target.checked)}
+              className="accent-primary"
+            />
+            <span>Do not show this again</span>
+          </label>
+        </div>
 
-        <button
-          onClick={closePopup}
-          className="mt-4 text-xs text-gray-400 hover:text-gray-200 transition"
-        >
-          Continue to iTasks →
-        </button>
-      </div>
-    </div>
+        <div className="mt-4 flex items-center justify-end gap-2">
+          <Button variant="ghost" onClick={() => handleClose(dontShow)}>
+            Close
+          </Button>
+          <a
+            href="https://www.effectivegatecpm.com/kecdvpnbj?key=c5287d7a9600c81a39f67d14509287b5"
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => handleClose(dontShow)}
+          >
+            <Button>Learn more</Button>
+          </a>
+        </div>
+        <DialogClose />
+      </DialogContent>
+    </Dialog>
   );
 }
+
